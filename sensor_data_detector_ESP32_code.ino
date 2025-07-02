@@ -22,6 +22,18 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
       break;
     case WStype_CONNECTED:
       Serial.println("🟢 WebSocket 연결됨");
+      // 연결 후 identify 메시지 전송
+      {
+        StaticJsonDocument<100> doc;
+        doc["type"] = "identify";
+        doc["name"] = "ESP32";
+        String jsonStr;
+        serializeJson(doc, jsonStr);
+        webSocket.sendTXT(jsonStr);
+        Serial.println("📤 Identify 메시지 전송: " + jsonStr);
+        //클라이언트 식별 { "type": "identify", "name": "ESP32" }
+
+      }
       break;
     case WStype_TEXT:
       Serial.printf("📩 메시지 수신: %s\n", payload);
@@ -39,7 +51,11 @@ void sendSensorData() {
     return;
   }
 
-  StaticJsonDocument<200> doc;
+  StaticJsonDocument<256> doc;
+  doc["type"] = "sensor_data";
+  doc["from"] = "ESP32"; // 누가 보냈는지
+
+  JsonObject data = doc.createNestedObject("data");
   doc["temperature"] = temperature;
   doc["humidity"] = humidity;
   doc["light_level"] = light_level;
@@ -49,6 +65,8 @@ void sendSensorData() {
   serializeJson(doc, jsonStr);
   webSocket.sendTXT(jsonStr);
   Serial.println("📤 데이터 전송: " + jsonStr);
+  //센서 데이터 전송 { "type": "sensor_data", "from": "ESP32", "data": { ... } }
+
 }
 
 void connectToWiFi() {
@@ -89,8 +107,9 @@ void loop() {
   webSocket.loop();
 
   static unsigned long lastSend = 0;
-  if (WiFi.status() == WL_CONNECTED && webSocket.isConnected() && millis() - lastSend > 10000) {
+  if (WiFi.status() == WL_CONNECTED && webSocket.isConnected() && millis() - lastSend > 1000) {
     //센서 데이터는 Wi-Fi + WebSocket이 연결된 경우에만 전송됨
+    //300,000ms = 5분
     sendSensorData();
     lastSend = millis();
   }
