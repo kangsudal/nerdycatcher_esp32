@@ -6,35 +6,36 @@
 const char* ssid = "";
 const char* password = "";
 // Supabase 'devices' 테이블에 들어있는 이 기기만의 고유 API 키
-const char* apiKey = "";
+const char* apiKey = "esp32_01_f47ac10b-58cc-4372-a567-0e02b2c3d479";
 // Render.com 서버의 Root CA 인증서
-const char* root_ca = \
-"-----BEGIN CERTIFICATE-----\n"
-"MIIDejCCAmKgAwIBAgIQf+UwvzMTQ77dghYQST2KGzANBgkqhkiG9w0BAQsFADBX\n"
-"MQswCQYDVQQGEwJCRTEZMBcGA1UEChMQR2xvYmFsU2lnbiBudi1zYTEQMA4GA1UE\n"
-"CxMHUm9vdCBDQTEbMBkGA1UEAxMSR2xvYmFsU2lnbiBSb290IENBMB4XDTIzMTEx\n"
-"NTAzNDMyMVoXDTI4MDEyODAwMDA0MlowRzELMAkGA1UEBhMCVVMxIjAgBgNVBAoT\n"
-"GUdvb2dsZSBUcnVzdCBTZXJ2aWNlcyBMTEMxFDASBgNVBAMTC0dUUyBSb290IFI0\n"
-"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAn6vKApN+S0n5mV0ZwDcM\n"
-"rKaqw18oBZIo8gkxpNj9zzOKCVuQn6Vn5rYkmkuv++PkS50sxQYoFfveXqU+Nz5E\n"
-"3pjXW+2c/6uzXYcqLM2fAyNPk3FoPhgItZk6l1SclElMG+wPHzSmFLlQ9H9tFnrK\n"
-"5+JZPLm3lbkYX0Ed1vgupav5Snv31W1USMGeEziB0v47OplA9LJ9vhOJ+V3HXcGQ\n"
-"qZxXGaeIEQEe52xtkq3QH0Oy9a0DiS5K/0Y+3hGjRvr76BvlfV7DhYhjoNKuShRU\n"
-"jHCqdt9dQz/SEuX4Mb+KkPtXlWc5wT6v2cpSu0KswIxsmoxNsA4iXOkDQ1FwE5Ml\n"
-"jwIDAQABo1MwUTAdBgNVHQ4EFgQUgEzW63T/STaj1dj8tT7FavCUHYwwHwYDVR0j\n"
-"BBgwFoAUYHtmGkUNl8qJUC99BM00qP/8/UswDwYDVR0TAQH/BAUwAwEB/zANBgkq\n"
-"hkiG9w0BAQsFAAOCAQEAI5K4HVX17qY3vN94xdTKoE0yEKKzpKLYryjLwA+/V1Zy\n"
-"7Xkb9dqZ85Hlf6l4B9CmDWcvUpG8v6CK9IcYjKWVrGqHg6AQ0CQXQlZlN+H/mXkc\n"
-"7oDc1KoB4xvQ+dml6Dj7ER4gGdTFgChcmi02r4O3PTcF0o+UX1EpEb3J7IXMzSSe\n"
-"Tb0FyxBSlQTs7C3cTXKTHkQZH+0iEfZtP5H7jRe6QChb1j8JGv+pQ9G55IsQ/Xmk\n"
-"10UIFo0Pr3p2TGWvGZaG3XjhXqTzlkQ69PxnZ4f88QzwlcyDDhUSb9HRiQ/8cWWO\n"
-"muDXe6nJ05I2xLue6uRRzVgw0dS11WT8M4EZgHTo7g==\n"
-"-----END CERTIFICATE-----\n";
+const char* root_ca =
+  "-----BEGIN CERTIFICATE-----\n"
+  "MIIDejCCAmKgAwIBAgIQf+UwvzMTQ77dghYQST2KGzANBgkqhkiG9w0BAQsFADBX\n"
+  "MQswCQYDVQQGEwJCRTEZMBcGA1UEChMQR2xvYmFsU2lnbiBudi1zYTEQMA4GA1UE\n"
+  "CxMHUm9vdCBDQTEbMBkGA1UEAxMSR2xvYmFsU2lnbiBSb290IENBMB4XDTIzMTEx\n"
+  "NTAzNDMyMVoXDTI4MDEyODAwMDA0MlowRzELMAkGA1UEBhMCVVMxIjAgBgNVBAoT\n"
+  "GUdvb2dsZSBUcnVzdCBTZXJ2aWNlcyBMTEMxFDASBgNVBAMTC0dUUyBSb290IFI0\n"
+  "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAn6vKApN+S0n5mV0ZwDcM\n"
+  "rKaqw18oBZIo8gkxpNj9zzOKCVuQn6Vn5rYkmkuv++PkS50sxQYoFfveXqU+Nz5E\n"
+  "3pjXW+2c/6uzXYcqLM2fAyNPk3FoPhgItZk6l1SclElMG+wPHzSmFLlQ9H9tFnrK\n"
+  "5+JZPLm3lbkYX0Ed1vgupav5Snv31W1USMGeEziB0v47OplA9LJ9vhOJ+V3HXcGQ\n"
+  "qZxXGaeIEQEe52xtkq3QH0Oy9a0DiS5K/0Y+3hGjRvr76BvlfV7DhYhjoNKuShRU\n"
+  "jHCqdt9dQz/SEuX4Mb+KkPtXlWc5wT6v2cpSu0KswIxsmoxNsA4iXOkDQ1FwE5Ml\n"
+  "jwIDAQABo1MwUTAdBgNVHQ4EFgQUgEzW63T/STaj1dj8tT7FavCUHYwwHwYDVR0j\n"
+  "BBgwFoAUYHtmGkUNl8qJUC99BM00qP/8/UswDwYDVR0TAQH/BAUwAwEB/zANBgkq\n"
+  "hkiG9w0BAQsFAAOCAQEAI5K4HVX17qY3vN94xdTKoE0yEKKzpKLYryjLwA+/V1Zy\n"
+  "7Xkb9dqZ85Hlf6l4B9CmDWcvUpG8v6CK9IcYjKWVrGqHg6AQ0CQXQlZlN+H/mXkc\n"
+  "7oDc1KoB4xvQ+dml6Dj7ER4gGdTFgChcmi02r4O3PTcF0o+UX1EpEb3J7IXMzSSe\n"
+  "Tb0FyxBSlQTs7C3cTXKTHkQZH+0iEfZtP5H7jRe6QChb1j8JGv+pQ9G55IsQ/Xmk\n"
+  "10UIFo0Pr3p2TGWvGZaG3XjhXqTzlkQ69PxnZ4f88QzwlcyDDhUSb9HRiQ/8cWWO\n"
+  "muDXe6nJ05I2xLue6uRRzVgw0dS11WT8M4EZgHTo7g==\n"
+  "-----END CERTIFICATE-----\n";
 WebSocketsClient webSocket;
 
 #define DHTPIN 4
 #define DHTTYPE DHT11
 #define LIGHT_PIN 34
+#define LED_PIN 13
 
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -65,11 +66,42 @@ void webSocketEvent(WStype_t type, uint8_t* payload, size_t length) {
     case WStype_TEXT:
       Serial.printf("📩 메시지 수신: %s\n", payload);
 
-      StaticJsonDocument<200> doc;
-      deserializeJson(doc, payload, length);
-      if (strcmp(doc["type"], "auth_success") == 0) {
+      StaticJsonDocument<256> doc;
+      DeserializationError error = deserializeJson(doc, payload);
+
+      if (error) {
+        Serial.print("❌ JSON 파싱 실패: ");
+        Serial.println(error.c_str());
+        return;
+      }
+
+      const char* msgType = doc["type"];
+      Serial.print("🔍 수신된 type 값: '");
+      Serial.print(msgType);
+      Serial.println("'");
+
+      if (strcmp(msgType, "auth_success") == 0) {
         Serial.println("✅ WebSocket 인증 성공!");
         isAuthenticated = true;
+      }
+
+      if (strcmp(msgType, "led_control") == 0) {
+        Serial.println("✅ led_control 처리 시작");
+
+        const char* state = doc["state"];
+        Serial.print("🔍 수신된 state 값: '");
+        Serial.print(state);
+        Serial.println("'");
+
+        if (strcmp(state, "on") == 0) {
+          digitalWrite(LED_PIN, HIGH);
+          Serial.println("on!!");
+        } else if (strcmp(state, "off") == 0) {
+          digitalWrite(LED_PIN, LOW);
+          Serial.println("off!");
+        } else {
+          Serial.println("알 수 없는 LED 상태 값");
+        }
       }
       break;
   }
@@ -118,6 +150,8 @@ void connectToWiFi() {
 void setup() {
   Serial.begin(115200);
   dht.begin();
+  pinMode(LED_PIN, OUTPUT);
+  digitalWrite(LED_PIN, LOW);  // 초기 상태 OFF
 
   connectToWiFi();
 
@@ -143,7 +177,7 @@ void loop() {
   webSocket.loop();
 
   static unsigned long lastSendTime = 0;
-  const long sendInterval = 10000;
+  const long sendInterval = 2000;
 
   // 👇 3. 'isAuthenticated'가 true일 때만 센서 데이터를 보내도록 조건 추가
   if (isAuthenticated && (millis() - lastSendTime > sendInterval)) {
